@@ -1,0 +1,41 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "stata_do_parser",
+      "camelcase": "StataDoParser",
+      "title": "Stata Do Parser",
+      "scope": "source.stata",
+      "file-types": [
+        ".do",
+        ".mata",
+        ".ado"
+      ],
+      "injection-regex": "^stata_do_parser$",
+      "class-name": "TreeSitterStataDoParser"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A tree-sitter for parsing stata do files",
+    "authors": [
+      {
+        "name": "Simon Taye",
+        "url": "https://github.com/SimonMTaye/tree-sitter-stata"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/SimonMTaye/tree-sitter-stata"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
