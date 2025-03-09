@@ -1,0 +1,27 @@
+==================
+Single line comment
+==================
+* This is a comment
+// This is also a comment
+
+/// Comment at the last line
+
+// Another comment
+
+---
+
+(source_file)
+  
+==================
+Block comment
+==================
+
+/* This is a comment */
+/* 
+This is another comment
+But with multiple lines
+*/
+
+---
+
+(source_file)

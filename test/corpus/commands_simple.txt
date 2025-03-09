@@ -1,0 +1,66 @@
+==================
+Basic command
+==================
+
+summarize
+
+---
+
+(source_file
+  (command_statement
+    (identifier)))
+
+==================
+Command with single variable
+==================
+
+generate x 
+
+---
+
+(source_file
+  (command_statement
+    (identifier)
+    (varlist
+      (identifier))))
+
+==================
+Command with many variables
+==================
+
+summarize x y z
+
+---
+
+(source_file
+  (command_statement
+    (identifier)
+    (varlist
+      (identifier)
+      (identifier)
+      (identifier))))
+
+==================
+Multiple commands
+==================
+
+summarize mpg price
+list 
+summarize weighT
+
+---
+
+(source_file
+  (command_statement
+    (identifier)
+    (varlist
+      (identifier)
+      (identifier)))
+  
+  (command_statement
+    (identifier))
+    
+  (command_statement
+    (identifier)
+    (varlist
+      (identifier))))
