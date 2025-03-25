@@ -45,3 +45,9 @@ zig-out/
 *.tar.gz
 *.tgz
 *.zip
+
+# VS Code
+.vscode/
+
+# temp folder and logs
+.temp
