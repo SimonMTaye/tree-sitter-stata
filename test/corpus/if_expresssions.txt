@@ -1,0 +1,92 @@
+=========
+Simple If
+=========
+
+if 1==1 {
+  summarize 
+}
+
+---
+
+(source_file
+  (if_statement
+      condition: 
+      (binary_expression 
+        left: (number) 
+        right: (number)) 
+        consequence: 
+          (block (command_statement (identifier)))))
+
+==================
+Compound If
+==================
+
+if a > b & c < d {
+  summarize
+}
+
+---
+
+(source_file
+  (if_statement
+      condition: 
+        (binary_expression 
+          left: (binary_expression left: (identifier) right: (identifier))
+          right: (binary_expression left: (identifier) right: (identifier)))
+      consequence: 
+        (block (command_statement (identifier)))))
+
+==================
+If Else
+==================
+
+if x == 1 {
+  summarize
+}
+else {
+  summarize
+}
+
+---
+
+(source_file
+  (if_statement
+      condition: (binary_expression left: (identifier) right: (number))
+      consequence: 
+        (block (command_statement (identifier)))
+      alternative: 
+        (block (command_statement (identifier)))))
+
+==================
+Nested If
+==================
+
+if x > 0 {
+  if y < 0 {
+    summarize
+  }
+}
+
+---
+
+(source_file
+  (if_statement
+      condition: (binary_expression left: (identifier) right: (number))
+      consequence: 
+      (block
+        (if_statement
+            condition: (binary_expression left: (identifier) right: (number))
+            consequence: 
+              (block (command_statement (identifier)))))))
+
+==================
+Single Line If
+==================
+
+if (x > 0) summarize
+
+---
+(source_file
+  (if_statement
+      condition: (binary_expression left: (identifier) right: (number))
+      (command_statement (identifier))))

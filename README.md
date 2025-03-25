@@ -10,11 +10,12 @@ Once the following broad sections (and tests!) are implemented, the grammar will
 
 - [x] Comments
 - [x] Commands
+- [x] Expressions
 - Control Flow Structures
   - [ ] 'for' blocks
     - [ ] 'foreach' blocks
     - [ ] 'forvalues' blocks
-  - [ ] 'if' blocks
+  - [x] 'if' blocks
   - [ ] 'while' blocks
 - [ ] Modifier blocks
   - Things like `quietly`, `noisily`, `capture`, etc.

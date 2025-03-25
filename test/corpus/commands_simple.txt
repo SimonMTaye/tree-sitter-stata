@@ -2,7 +2,7 @@
 Basic command
 ==================
 
-summarize
+summarize 
 
 ---
 
@@ -21,8 +21,7 @@ generate x
 (source_file
   (command_statement
     (identifier)
-    (varlist
-      (identifier))))
+    (identifier)))
 
 ==================
 Command with many variables
@@ -35,10 +34,9 @@ summarize x y z
 (source_file
   (command_statement
     (identifier)
-    (varlist
-      (identifier)
-      (identifier)
-      (identifier))))
+    (identifier)
+    (identifier)
+    (identifier)))
 
 ==================
 Multiple commands
@@ -53,14 +51,12 @@ summarize weighT
 (source_file
   (command_statement
     (identifier)
-    (varlist
-      (identifier)
-      (identifier)))
+    (identifier)
+    (identifier))
   
   (command_statement
     (identifier))
     
   (command_statement
     (identifier)
-    (varlist
-      (identifier))))
+    (identifier)))

@@ -8,61 +8,141 @@
 // @ts-check
 
 module.exports = grammar({
-  name: "stata_do_parser",
+  name: "stata",
 
   word: ($) => $.identifier,
 
   // Define comment tokens properly within the grammar
-  extras: ($) => [/\s+/],
+  // Modify extras to exclude newlines
+  extras: ($) => [/[ \t\f\v\r]/],
 
   rules: {
     // Root node
-    source_file: ($) => repeat(seq($._statement, $._terminator)),
+    source_file: ($) => repeat($._statement),
 
     _terminator: ($) => `\n`,
 
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    // Add this rule to handle EOF
+    // end_of_file: ($) => token.immediate(prec(1, /$/)),
 
-    // Basic statement
-    _statement: ($) => choice($.command_statement, $._comment),
+    //  Statement
+    _statement: ($) => choice($.if_statement, $.command_statement, "\n"),
 
-    // Simple command statement
-    command_statement: ($) => seq($.identifier, optional($.varlist)),
+    // Simple command statement - updated to handle EOF better
+    command_statement: ($) =>
+      seq($.identifier, optional(repeat($.identifier)), "\n"),
 
-    // Variable list
-    varlist: ($) => repeat1($.identifier),
+    // TODO: Check if stata allows blocks that don't have a new line
+    // Block Statements
+    block: ($) =>
+      prec.left(1, seq("{", "\n", repeat1($._statement), optional("\n"), "}")),
 
-    // Comments
-    _comment: ($) =>
-      seq(
-        choice(
-          $._line_comment,
-          $._block_comment,
-          $._double_slash_comment,
-          $._triple_slash_comment
+    // If Statements
+    if_statement: ($) =>
+      choice($._if_block_statement, $._if_single_line_expression),
+
+    _if_block_statement: ($) =>
+      prec.right(
+        seq(
+          "if",
+          field("condition", $._expression),
+          field("consequence", $.block),
+          "\n",
+          field(
+            "alternative",
+            optional(seq("else", choice($.block, $._if_block_statement)))
+          )
         )
       ),
 
-    // Line comment starts with * at the beginning of a line
-    // They are a special case of comments that can't just show up anywhere
-    _line_comment: ($) => token(seq(repeat(/\s/), "*", /[^\n]*/)),
+    _if_single_line_expression: ($) =>
+      seq(
+        "if",
+        "(",
+        field("condition", $._expression),
+        ")",
+        $.command_statement
+      ),
 
-    // Comments that start with //
-    _double_slash_comment: ($) => token(seq("//", /[^\n]*/)),
+    // === EXPRESSION RULES START ===
+    // Expressions can be used in many Stata contexts
+    _expression: ($) =>
+      choice(
+        $.identifier,
+        $.number,
+        $.string,
+        $.function_call,
+        $.unary_expression,
+        $.binary_expression,
+        $.parenthesized_expression,
+        $.indexed_expression,
+        $.timeseries_expression
+      ),
 
-    // Comments that start with ///
-    // also matches newlines unlike other comments to allow multiline
-    // commands that are separated by ///
-    _triple_slash_comment: ($) => token(seq("///", /[^\n]*/, optional(`\n`))),
+    // Function calls
+    function_call: ($) =>
+      seq(field("name", $.identifier), "(", optional($.argument_list), ")"),
 
-    // Block comment can appear anywhere and spans from /* to */
-    _block_comment: ($) =>
-      token(
-        seq(
-          "/*",
-          /([^*]|(\*[^\/]))*/, // Match anything except */ sequence
-          "*/"
-        )
+    // Function arguments
+    argument_list: ($) => seq($._expression, repeat(seq(",", $._expression))),
+
+    // Unary expressions
+    unary_expression: ($) =>
+      prec(2, seq(field("operator", choice("-", "!", "~")), $._expression)),
+
+    // Binary expressions with precedence based on Stata's rules
+    binary_expression: ($) => {
+      // Helper function to define binary expressions with precedence
+      const bin_exp = (op, precedence) =>
+        prec.left(
+          precedence,
+          seq(
+            field("left", $._expression),
+            field("operator", op),
+            field("right", $._expression)
+          )
+        );
+      return choice(
+        // Go down operations in ascending order of precedence
+        // Logical operators
+        bin_exp("|", 3),
+        bin_exp("&", 4),
+        // Relational operators
+        ...["==", "!=", "~=", ">", "<", ">=", "<="].map((op) => bin_exp(op, 5)),
+        // Arithmetic operators
+        bin_exp("+", 6),
+        bin_exp("-", 6),
+        bin_exp("*", 7),
+        bin_exp("/", 7),
+        bin_exp("^", 8)
+      );
+    },
+
+    // Parenthesized expressions
+    parenthesized_expression: ($) => seq("(", $._expression, ")"),
+
+    // Array/matrix subscript notation: var[n]
+    indexed_expression: ($) => seq($._expression, "[", $._expression, "]"),
+
+    // Time series expression
+    timeseries_expression: ($) =>
+      seq(
+        field("operator", choice("L", "F", "D")),
+        optional($.number),
+        ".",
+        $.identifier
+      ),
+
+    identifier: ($) => /[a-zA-Z_]\w*/,
+
+    // Numbers
+    number: ($) => /[0-9]+(\.[0-9]+)?/,
+
+    // Strings with both quote types
+    string: ($) =>
+      choice(
+        seq('"', field("value", repeat(choice(/[^"\n]/, '\\"'))), '"'),
+        seq("'", field("value", repeat(choice(/[^'\n]/, "\\'"))), "'")
       ),
   },
 });
