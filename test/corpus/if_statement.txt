@@ -58,6 +58,33 @@ else {
         (block (command_statement (identifier)))))
 
 ==================
+If Else-If Else
+==================
+
+if x == 1 {
+  summarize
+}
+else if x == 2 {
+  summarize
+}
+else {
+  summarize
+}
+
+---
+
+(source_file
+  (if_statement
+      condition: (binary_expression left: (identifier) right: (number))
+      consequence: 
+        (block (command_statement (identifier)))
+      condition: (binary_expression left: (identifier) right: (number))
+      consequence: 
+        (block (command_statement (identifier)))
+      alternative: 
+        (block (command_statement (identifier)))))
+
+==================
 Nested If
 ==================
 
