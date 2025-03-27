@@ -13,10 +13,10 @@ Once the following broad sections (and tests!) are implemented, the grammar will
 - [x] Expressions
 - Control Flow Structures
   - [ ] 'for' blocks
-    - [ ] 'foreach' blocks
+    - [x] 'foreach' blocks
     - [ ] 'forvalues' blocks
   - [x] 'if' blocks
-  - [ ] 'while' blocks
+  - [x] 'while' blocks
 - [ ] Modifier blocks
   - Things like `quietly`, `noisily`, `capture`, etc.
 - [ ] Scalar definitions
@@ -42,6 +42,11 @@ This section will be fleshed out as each broad structure is complete
 - [ ] `in range`
 - [ ] `weight`
 - [ ] `options`
+
+### For Loops
+
+- [ ] flesh the list that can be matched in `foreach`
+  - [ ] `numlist`
 
 ## Issues
 

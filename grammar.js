@@ -26,7 +26,14 @@ module.exports = grammar({
     // end_of_file: ($) => token.immediate(prec(1, /$/)),
 
     //  Statement
-    _statement: ($) => choice($.if_statement, $.command_statement, "\n"),
+    _statement: ($) =>
+      choice(
+        $.if_statement,
+        $.command_statement,
+        $.foreach_statement,
+        $.while_statement,
+        "\n"
+      ),
 
     // Simple command statement - updated to handle EOF better
     command_statement: ($) =>
@@ -62,6 +69,39 @@ module.exports = grammar({
         field("condition", $._expression),
         ")",
         $.command_statement
+      ),
+
+    foreach_statement: ($) =>
+      seq(
+        "foreach",
+        field("iterator", $.identifier),
+        field(
+          "loop_type",
+          choice(
+            "in",
+            seq(
+              "of",
+              field(
+                "listtype",
+                choice("varlist", "newlist", "numlist", "local", "global")
+              )
+            )
+          )
+        ),
+        field("list", $._foreach_list),
+        field("body", $.block),
+        "\n"
+      ),
+
+    _foreach_list: ($) =>
+      choice(repeat1($.identifier), repeat1($.number), repeat1($.string)),
+
+    while_statement: ($) =>
+      seq(
+        "while",
+        field("condition", $._expression),
+        field("body", $.block),
+        "\n"
       ),
 
     // === EXPRESSION RULES START ===

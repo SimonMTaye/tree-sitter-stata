@@ -1,0 +1,145 @@
+===
+Foreach with in syntax
+===
+
+foreach i in a b c {
+summarize
+}
+
+---
+
+(source_file
+(foreach_statement
+iterator: (identifier)
+list: (identifier) 
+list: (identifier) 
+list: (identifier)
+body: 
+  (block (command_statement (identifier)))))
+
+===
+Foreach with of varlist syntax
+===
+
+foreach var of varlist income age education {
+summarize
+}
+
+---
+
+(source_file
+(foreach_statement
+  iterator: (identifier)
+  list: (identifier) 
+  list: (identifier) 
+  list: (identifier)
+  body: (block
+    (command_statement (identifier)))))
+
+===
+Foreach with of newlist syntax
+===
+
+foreach name of newlist newvar1 newvar2 newvar3 {
+summarize
+}
+
+---
+
+(source_file
+(foreach_statement
+iterator: (identifier)
+list: (identifier) list: (identifier) list: (identifier)
+body: (block
+(command_statement (identifier)))))
+
+===
+Foreach with of numlist syntax
+===
+
+foreach num of numlist 1 {
+summarize
+}
+
+---
+(source_file
+(foreach_statement
+iterator: (identifier)
+list: (number) 
+body: (block
+(command_statement (identifier)))))
+
+===
+Foreach with of local syntax
+===
+
+foreach item of local mylist {
+summarize
+}
+
+---
+
+(source_file
+(foreach_statement
+iterator: (identifier)
+list: (identifier)
+body: (block
+(command_statement (identifier)))))
+
+===
+Foreach with of global syntax
+===
+
+foreach item of global globallist moreglobals {
+summarize
+}
+
+---
+
+(source_file
+(foreach_statement
+iterator: (identifier)
+list: (identifier)
+list: (identifier)
+body: (block
+(command_statement (identifier)))))
+
+===
+Foreach with string list
+===
+
+foreach str in "one" "two" "three" {
+summarize
+}
+
+---
+
+(source_file
+(foreach_statement
+iterator: (identifier)
+list: (string) list: (string) list: (string)
+body: (block
+(command_statement (identifier)))))
+
+===
+Nested foreach statements
+===
+
+foreach i in 1 2 3 {
+  foreach j in a b c {
+    summarize
+  }
+}
+
+---
+
+(source_file
+(foreach_statement
+iterator: (identifier)
+  list: (number) list: (number) list: (number)
+  body: (block
+    (foreach_statement
+      iterator: (identifier)
+      list: (identifier) list: (identifier) list: (identifier)
+      body: (block
+      (command_statement (identifier)))))))

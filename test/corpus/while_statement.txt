@@ -1,0 +1,105 @@
+===========================
+Basic while loop
+===========================
+
+while i < 10 {
+  display i
+  generate variable
+}
+
+---
+
+(source_file
+  (while_statement
+    condition: (binary_expression
+      left: (identifier)
+      right: (number))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier))
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+===========================
+While loop with complex condition
+===========================
+
+while (x > 5 & y < 10) | z == 0 {
+  sum x
+}
+
+---
+
+(source_file
+  (while_statement
+    condition: (binary_expression
+          left: (parenthesized_expression (binary_expression
+              left: (binary_expression
+                left: (identifier)
+              right: (number))
+            right: (binary_expression
+              left: (identifier)
+              right: (number))))
+        right: (binary_expression
+          left: (identifier)
+          right: (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+===========================
+Nested while loops
+===========================
+
+while i < 5 {
+  while j < 3 {
+    display i j
+  }
+  summarize
+}
+
+---
+
+(source_file
+  (while_statement
+    condition: (binary_expression
+      left: (identifier)
+      right: (number))
+    body: (block
+      (while_statement
+        condition: (binary_expression
+          left: (identifier)
+          right: (number))
+        body: (block
+          (command_statement
+            (identifier)
+            (identifier)
+            (identifier))))
+      (command_statement
+        (identifier)))))
+
+===========================
+While loop with function call condition
+===========================
+
+while inrange(x, 1, 10) {
+  replace x 
+}
+
+---
+
+(source_file
+  (while_statement
+    condition: (function_call
+      name: (identifier)
+      (argument_list
+        (identifier)
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
