@@ -32,6 +32,7 @@ module.exports = grammar({
         $.command_statement,
         $.foreach_statement,
         $.while_statement,
+        $.block_statement,
         "\n"
       ),
 
@@ -40,10 +41,18 @@ module.exports = grammar({
       seq($.identifier, optional(repeat($.identifier)), "\n"),
 
     // TODO: Check if stata allows blocks that don't have a new line
-    // Block Statements
+    // Blocks
     block: ($) =>
       prec.left(1, seq("{", "\n", repeat1($._statement), optional("\n"), "}")),
 
+    // Block statements with modifiers
+    modifier_keywords: ($) => choice("quietly", "capture", "noisily"),
+    block_statement: ($) =>
+      seq(
+        field("modifier", optional($.modifier_keywords)),
+        field("block", $.block),
+        "\n"
+      ),
     // If Statements
     if_statement: ($) =>
       choice($._if_block_statement, $._if_single_line_expression),

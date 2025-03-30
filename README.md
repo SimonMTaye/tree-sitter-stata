@@ -11,18 +11,13 @@ Once the following broad sections (and tests!) are implemented, the grammar will
 - [x] Comments
 - [x] Commands
 - [x] Expressions
-- Control Flow Structures
-  - [ ] 'for' blocks
-    - [x] 'foreach' blocks
-    - [ ] 'forvalues' blocks
-  - [x] 'if' blocks
-  - [x] 'while' blocks
-- [ ] Modifier blocks
+- [x] 'foreach' blocks
+- [x] 'if' blocks
+- [x] 'while' blocks
+- [x] Modifier blocks
+- [ ] 'forvalues' blocks
+
   - Things like `quietly`, `noisily`, `capture`, etc.
-- [ ] Scalar definitions
-- [ ] Macro definitions
-- [ ] Program Definitions
-- [ ] Version statements
 
 ## Flesh Out
 
@@ -43,10 +38,23 @@ This section will be fleshed out as each broad structure is complete
 - [ ] `weight`
 - [ ] `options`
 
+The below can be treated like special commands
+
+- [ ] Scalar definitions
+- [ ] Macro definitions
+- [ ] Program Definitions
+
 ### For Loops
 
 - [ ] flesh the list that can be matched in `foreach`
   - [ ] `numlist`
+
+### Expressions
+
+- [ ] Return result access
+  - [ ] `e()` values
+  - [ ] `r()` values
+- [ ]
 
 ## Issues
 

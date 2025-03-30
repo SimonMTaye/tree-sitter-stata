@@ -1,0 +1,66 @@
+==================
+Quietly block statement
+==================
+
+quietly {
+  summarize var1
+  regress y x1 x2
+}
+
+---
+
+(source_file
+  (block_statement
+    modifier: (modifier_keywords)
+    block: (block
+      (command_statement
+        (identifier)
+        (identifier))
+      (command_statement
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)))))
+
+==================
+Capture block statement
+==================
+
+capture {
+  export excel 
+  save data
+}
+
+---
+
+(source_file
+  (block_statement
+    modifier: (modifier_keywords)
+    block: (block
+      (command_statement
+        (identifier)
+        (identifier))
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+==================
+Noisily block statement
+==================
+
+noisily {
+  generate newvar 
+  drop 
+}
+
+---
+
+(source_file
+  (block_statement
+    modifier: (modifier_keywords)
+    block: (block
+      (command_statement
+        (identifier)
+        (identifier))
+      (command_statement
+        (identifier)))))

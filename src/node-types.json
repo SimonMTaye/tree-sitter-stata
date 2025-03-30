@@ -207,6 +207,10 @@
       "required": false,
       "types": [
         {
+          "type": "block_statement",
+          "named": true
+        },
+        {
           "type": "command_statement",
           "named": true
         },
@@ -223,6 +227,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "block_statement",
+    "named": true,
+    "fields": {
+      "block": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "modifier_keywords",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -524,6 +554,11 @@
     }
   },
   {
+    "type": "modifier_keywords",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -579,6 +614,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "block_statement",
+          "named": true
+        },
         {
           "type": "command_statement",
           "named": true
@@ -889,6 +928,10 @@
     "named": false
   },
   {
+    "type": "capture",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -921,6 +964,10 @@
     "named": false
   },
   {
+    "type": "noisily",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
@@ -930,6 +977,10 @@
   },
   {
     "type": "of",
+    "named": false
+  },
+  {
+    "type": "quietly",
     "named": false
   },
   {
