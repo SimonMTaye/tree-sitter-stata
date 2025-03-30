@@ -48,6 +48,6 @@
     "prestart": "podman machine start && tree-sitter build --wasm",
     "start": "tree-sitter playground",
     "pretest": "npm run generate",
-    "test": "tree-sitter test -d 2> .test.log"
+    "test": "tree-sitter test"
   }
 }

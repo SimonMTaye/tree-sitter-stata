@@ -51,3 +51,4 @@ zig-out/
 
 # temp folder and logs
 .temp
+*.log
