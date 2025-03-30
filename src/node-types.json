@@ -16,11 +16,19 @@
           "named": true
         },
         {
+          "type": "global_macro",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "indexed_expression",
+          "named": true
+        },
+        {
+          "type": "local_macro",
           "named": true
         },
         {
@@ -63,11 +71,19 @@
             "named": true
           },
           {
+            "type": "global_macro",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "indexed_expression",
+            "named": true
+          },
+          {
+            "type": "local_macro",
             "named": true
           },
           {
@@ -167,11 +183,19 @@
             "named": true
           },
           {
+            "type": "global_macro",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "indexed_expression",
+            "named": true
+          },
+          {
+            "type": "local_macro",
             "named": true
           },
           {
@@ -216,6 +240,10 @@
         },
         {
           "type": "foreach_statement",
+          "named": true
+        },
+        {
+          "type": "forvalues_statement",
           "named": true
         },
         {
@@ -355,6 +383,42 @@
     }
   },
   {
+    "type": "forvalues_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "iterator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "numlist": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {
@@ -378,6 +442,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "global_macro",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -409,6 +489,10 @@
             "named": true
           },
           {
+            "type": "global_macro",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -418,6 +502,10 @@
           },
           {
             "type": "indexed_expression",
+            "named": true
+          },
+          {
+            "type": "local_macro",
             "named": true
           },
           {
@@ -455,11 +543,19 @@
             "named": true
           },
           {
+            "type": "global_macro",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "indexed_expression",
+            "named": true
+          },
+          {
+            "type": "local_macro",
             "named": true
           },
           {
@@ -523,11 +619,19 @@
           "named": true
         },
         {
+          "type": "global_macro",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "indexed_expression",
+          "named": true
+        },
+        {
+          "type": "local_macro",
           "named": true
         },
         {
@@ -554,9 +658,49 @@
     }
   },
   {
+    "type": "local_macro",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "modifier_keywords",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "number_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "range",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "parenthesized_expression",
@@ -575,11 +719,19 @@
           "named": true
         },
         {
+          "type": "global_macro",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "indexed_expression",
+          "named": true
+        },
+        {
+          "type": "local_macro",
           "named": true
         },
         {
@@ -600,6 +752,21 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
           "named": true
         }
       ]
@@ -624,6 +791,10 @@
         },
         {
           "type": "foreach_statement",
+          "named": true
+        },
+        {
+          "type": "forvalues_statement",
           "named": true
         },
         {
@@ -708,10 +879,6 @@
             "named": false
           },
           {
-            "type": "-",
-            "named": false
-          },
-          {
             "type": "~",
             "named": false
           }
@@ -731,11 +898,19 @@
           "named": true
         },
         {
+          "type": "global_macro",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "indexed_expression",
+          "named": true
+        },
+        {
+          "type": "local_macro",
           "named": true
         },
         {
@@ -788,11 +963,19 @@
             "named": true
           },
           {
+            "type": "global_macro",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "indexed_expression",
+            "named": true
+          },
+          {
+            "type": "local_macro",
             "named": true
           },
           {
@@ -836,6 +1019,10 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "&",
     "named": false
   },
@@ -876,11 +1063,19 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
   {
     "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {
@@ -928,6 +1123,10 @@
     "named": false
   },
   {
+    "type": "`",
+    "named": false
+  },
+  {
     "type": "capture",
     "named": false
   },
@@ -937,6 +1136,10 @@
   },
   {
     "type": "foreach",
+    "named": false
+  },
+  {
+    "type": "forvalues",
     "named": false
   },
   {
@@ -968,10 +1171,6 @@
     "named": false
   },
   {
-    "type": "number",
-    "named": true
-  },
-  {
     "type": "numlist",
     "named": false
   },
@@ -981,6 +1180,10 @@
   },
   {
     "type": "quietly",
+    "named": false
+  },
+  {
+    "type": "to",
     "named": false
   },
   {

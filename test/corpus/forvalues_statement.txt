@@ -1,0 +1,258 @@
+================================
+Forvalues with single number
+================================
+
+forvalues i = 2.5 {
+    display i
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (number))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with forward range
+================================
+
+forvalues j = 1/3 {
+    display j
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with backward range
+================================
+
+forvalues k = 3/1 {
+    display k
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with negative range
+================================
+
+forvalues j = -8/-5 {
+    display j
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with "to" notation
+================================
+
+forvalues m = 1 to 3 {
+    display m
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with colon notation
+================================
+
+forvalues n = 10:15 {
+    display n
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with parentheses step
+================================
+
+forvalues i = 1(1)3 {
+    display i
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with negative step
+================================
+
+forvalues k = 9(-2)1 {
+    display k
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with decimal step
+================================
+
+forvalues l = -1(.5)2.5 {
+    display l
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Forvalues with bracket step
+================================
+
+forvalues i = 1[2]9 {
+    display i
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))
+
+================================
+Multiple forvalues loops
+================================
+
+forvalues i = 1/3 {
+    display i
+}
+
+forvalues j = 5(5)20 {
+    display j
+}
+
+---
+
+(source_file
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier))))
+  (forvalues_statement
+    iterator: (identifier)
+    numlist: (number_list
+      (range
+        (number)
+        (number)
+        (number)))
+    body: (block
+      (command_statement
+        (identifier)
+        (identifier)))))

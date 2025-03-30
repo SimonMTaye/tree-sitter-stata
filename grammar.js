@@ -33,6 +33,7 @@ module.exports = grammar({
         $.foreach_statement,
         $.while_statement,
         $.block_statement,
+        $.forvalues_statement,
         "\n"
       ),
 
@@ -113,6 +114,17 @@ module.exports = grammar({
         "\n"
       ),
 
+    // TODO: Update forvalues test to handle macros
+    forvalues_statement: ($) =>
+      seq(
+        "forvalues",
+        field("iterator", $.identifier),
+        "=",
+        field("numlist", $.number_list),
+        field("body", $.block),
+        "\n"
+      ),
+
     // === EXPRESSION RULES START ===
     // Expressions can be used in many Stata contexts
     _expression: ($) =>
@@ -125,8 +137,16 @@ module.exports = grammar({
         $.binary_expression,
         $.parenthesized_expression,
         $.indexed_expression,
-        $.timeseries_expression
+        $.timeseries_expression,
+        $.local_macro,
+        $.global_macro
       ),
+
+    // Local Macro
+    local_macro: ($) => seq("`", field("name", $.identifier), "'"),
+
+    // Global Macro
+    global_macro: ($) => seq("$", field("name", $.identifier)),
 
     // Function calls
     function_call: ($) =>
@@ -137,7 +157,7 @@ module.exports = grammar({
 
     // Unary expressions
     unary_expression: ($) =>
-      prec(2, seq(field("operator", choice("-", "!", "~")), $._expression)),
+      prec(2, seq(field("operator", choice("!", "~")), $._expression)),
 
     // Binary expressions with precedence based on Stata's rules
     binary_expression: ($) => {
@@ -184,8 +204,29 @@ module.exports = grammar({
 
     identifier: ($) => /[a-zA-Z_]\w*/,
 
-    // Numbers
-    number: ($) => /[0-9]+(\.[0-9]+)?/,
+    // Negative numbers
+    number: ($) =>
+      seq(
+        optional("-"),
+        choice(
+          /\.[0-9]+/, // Decimal numbers without leading digits
+          /[0-9]+(\.[0-9]+)?/
+        )
+      ),
+
+    // Number ranges in various formats
+    range: ($) =>
+      choice(
+        // Simple ranges: 1/5, 1:5, 1 to 5
+        seq($.number, choice("/", "to", ":"), $.number),
+        // Step notation with parentheses: 1(2)9
+        seq($.number, "(", $.number, ")", $.number),
+        // Step notation with brackets: 1[2]9
+        seq($.number, "[", $.number, "]", $.number)
+      ),
+
+    // Number lists
+    number_list: ($) => repeat1(seq(choice($.number, $.range), optional(","))),
 
     // Strings with both quote types
     string: ($) =>

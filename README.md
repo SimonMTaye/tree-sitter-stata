@@ -15,9 +15,8 @@ Once the following broad sections (and tests!) are implemented, the grammar will
 - [x] 'if' blocks
 - [x] 'while' blocks
 - [x] Modifier blocks
-- [ ] 'forvalues' blocks
-
   - Things like `quietly`, `noisily`, `capture`, etc.
+- [x] 'forvalues' blocks
 
 ## Flesh Out
 
@@ -38,23 +37,11 @@ This section will be fleshed out as each broad structure is complete
 - [ ] `weight`
 - [ ] `options`
 
-The below can be treated like special commands
-
-- [ ] Scalar definitions
-- [ ] Macro definitions
-- [ ] Program Definitions
-
 ### For Loops
 
 - [ ] flesh the list that can be matched in `foreach`
   - [ ] `numlist`
-
-### Expressions
-
-- [ ] Return result access
-  - [ ] `e()` values
-  - [ ] `r()` values
-- [ ]
+  - [ ] `varlist` / `newlist`
 
 ## Issues
 
