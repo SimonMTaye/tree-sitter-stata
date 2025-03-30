@@ -290,63 +290,108 @@
           }
         },
         {
-          "type": "FIELD",
-          "name": "loop_type",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "in"
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "of"
-                  },
-                  {
-                    "type": "FIELD",
-                    "name": "listtype",
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "in"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "list",
+                  "content": {
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "of"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "numlist"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "number_list"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
                       "members": [
                         {
                           "type": "STRING",
                           "value": "varlist"
                         },
                         {
+                          "type": "SYMBOL",
+                          "name": "variable_list"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
                           "type": "STRING",
                           "value": "newlist"
                         },
                         {
-                          "type": "STRING",
-                          "value": "numlist"
-                        },
+                          "type": "SYMBOL",
+                          "name": "variable_list"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
                         {
                           "type": "STRING",
                           "value": "local"
                         },
                         {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
                           "type": "STRING",
                           "value": "global"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
                         }
                       ]
                     }
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "list",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_foreach_list"
-          }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -459,53 +504,57 @@
       ]
     },
     "_expression": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "number"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "string"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "function_call"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "unary_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "binary_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "parenthesized_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "indexed_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "timeseries_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "local_macro"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "global_macro"
-        }
-      ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "number"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "string"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "function_call"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "unary_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "binary_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "parenthesized_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "indexed_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "timeseries_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "local_macro"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "global_macro"
+          }
+        ]
+      }
     },
     "local_macro": {
       "type": "SEQ",
@@ -1335,6 +1384,56 @@
           }
         ]
       }
+    },
+    "variable_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "*"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "var_range"
+          }
+        ]
+      }
+    },
+    "var_range": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "string": {
       "type": "CHOICE",

@@ -9,13 +9,14 @@ summarize
 ---
 
 (source_file
-(foreach_statement
-iterator: (identifier)
-list: (identifier) 
-list: (identifier) 
-list: (identifier)
-body: 
-  (block (command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    list: (identifier)
+    list: (identifier)
+    list: (identifier)
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Foreach with of varlist syntax
@@ -28,13 +29,15 @@ summarize
 ---
 
 (source_file
-(foreach_statement
-  iterator: (identifier)
-  list: (identifier) 
-  list: (identifier) 
-  list: (identifier)
-  body: (block
-    (command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    (variable_list
+      (identifier)
+      (identifier)
+      (identifier))
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Foreach with of newlist syntax
@@ -47,11 +50,15 @@ summarize
 ---
 
 (source_file
-(foreach_statement
-iterator: (identifier)
-list: (identifier) list: (identifier) list: (identifier)
-body: (block
-(command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    (variable_list
+      (identifier)
+      (identifier)
+      (identifier))
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Foreach with of numlist syntax
@@ -62,12 +69,15 @@ summarize
 }
 
 ---
+
 (source_file
-(foreach_statement
-iterator: (identifier)
-list: (number) 
-body: (block
-(command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    (number_list
+      (number))
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Foreach with of local syntax
@@ -80,29 +90,30 @@ summarize
 ---
 
 (source_file
-(foreach_statement
-iterator: (identifier)
-list: (identifier)
-body: (block
-(command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    (identifier)
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Foreach with of global syntax
 ===
 
-foreach item of global globallist moreglobals {
+foreach item of global globallist {
 summarize
 }
 
 ---
 
 (source_file
-(foreach_statement
-iterator: (identifier)
-list: (identifier)
-list: (identifier)
-body: (block
-(command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    (identifier)
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Foreach with string list
@@ -115,11 +126,14 @@ summarize
 ---
 
 (source_file
-(foreach_statement
-iterator: (identifier)
-list: (string) list: (string) list: (string)
-body: (block
-(command_statement (identifier)))))
+  (foreach_statement
+    iterator: (identifier)
+    list: (string)
+    list: (string)
+    list: (string)
+    body: (block
+      (command_statement
+        (identifier)))))
 
 ===
 Nested foreach statements
@@ -134,12 +148,61 @@ foreach i in 1 2 3 {
 ---
 
 (source_file
-(foreach_statement
-iterator: (identifier)
-  list: (number) list: (number) list: (number)
-  body: (block
-    (foreach_statement
-      iterator: (identifier)
-      list: (identifier) list: (identifier) list: (identifier)
-      body: (block
-      (command_statement (identifier)))))))
+  (foreach_statement
+    iterator: (identifier)
+    list: (number)
+    list: (number)
+    list: (number)
+    body: (block
+      (foreach_statement
+        iterator: (identifier)
+        list: (identifier)
+        list: (identifier)
+        list: (identifier)
+        body: (block
+          (command_statement
+            (identifier)))))))
+
+===
+Foreach with varlist wildcard syntax
+===
+
+foreach var of varlist income* age education {
+summarize
+}
+
+---
+
+(source_file
+  (foreach_statement
+    iterator: (identifier)
+    (variable_list
+      (identifier)
+      (identifier)
+      (identifier))
+    body: (block
+      (command_statement
+        (identifier)))))
+
+===
+Foreach with varlist range syntax
+===
+
+foreach var of varlist var1-var10 age education {
+summarize
+}
+
+---
+
+(source_file
+  (foreach_statement
+    iterator: (identifier)
+    (variable_list
+      (var_range
+        (identifier)
+        (identifier))
+      (identifier)
+      (identifier))
+    body: (block
+      (command_statement
+        (identifier)))))

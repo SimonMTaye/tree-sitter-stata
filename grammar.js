@@ -85,20 +85,19 @@ module.exports = grammar({
       seq(
         "foreach",
         field("iterator", $.identifier),
-        field(
-          "loop_type",
-          choice(
-            "in",
-            seq(
-              "of",
-              field(
-                "listtype",
-                choice("varlist", "newlist", "numlist", "local", "global")
-              )
+        choice(
+          seq("in", field("list", repeat1($._expression))),
+          seq(
+            "of",
+            choice(
+              seq("numlist", $.number_list),
+              seq("varlist", $.variable_list),
+              seq("newlist", $.variable_list),
+              seq("local", $.identifier),
+              seq("global", $.identifier)
             )
           )
         ),
-        field("list", $._foreach_list),
         field("body", $.block),
         "\n"
       ),
@@ -114,7 +113,6 @@ module.exports = grammar({
         "\n"
       ),
 
-    // TODO: Update forvalues test to handle macros
     forvalues_statement: ($) =>
       seq(
         "forvalues",
@@ -128,18 +126,20 @@ module.exports = grammar({
     // === EXPRESSION RULES START ===
     // Expressions can be used in many Stata contexts
     _expression: ($) =>
-      choice(
-        $.identifier,
-        $.number,
-        $.string,
-        $.function_call,
-        $.unary_expression,
-        $.binary_expression,
-        $.parenthesized_expression,
-        $.indexed_expression,
-        $.timeseries_expression,
-        $.local_macro,
-        $.global_macro
+      prec.right(
+        choice(
+          $.identifier,
+          $.number,
+          $.string,
+          $.function_call,
+          $.unary_expression,
+          $.binary_expression,
+          $.parenthesized_expression,
+          $.indexed_expression,
+          $.timeseries_expression,
+          $.local_macro,
+          $.global_macro
+        )
       ),
 
     // Local Macro
@@ -227,6 +227,12 @@ module.exports = grammar({
 
     // Number lists
     number_list: ($) => repeat1(seq(choice($.number, $.range), optional(","))),
+
+    // Varible list
+    variable_list: ($) =>
+      repeat1(choice(seq($.identifier, optional("*")), $.var_range)),
+
+    var_range: ($) => seq($.identifier, "-", $.identifier),
 
     // Strings with both quote types
     string: ($) =>

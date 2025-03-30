@@ -324,10 +324,30 @@
       },
       "list": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "function_call",
+            "named": true
+          },
+          {
+            "type": "global_macro",
+            "named": true
+          },
+          {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "indexed_expression",
+            "named": true
+          },
+          {
+            "type": "local_macro",
             "named": true
           },
           {
@@ -335,51 +355,41 @@
             "named": true
           },
           {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "timeseries_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
             "named": true
           }
         ]
-      },
-      "listtype": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "global",
-            "named": false
-          },
-          {
-            "type": "local",
-            "named": false
-          },
-          {
-            "type": "newlist",
-            "named": false
-          },
-          {
-            "type": "numlist",
-            "named": false
-          },
-          {
-            "type": "varlist",
-            "named": false
-          }
-        ]
-      },
-      "loop_type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "in",
-            "named": false
-          },
-          {
-            "type": "of",
-            "named": false
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number_list",
+          "named": true
+        },
+        {
+          "type": "variable_list",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -931,6 +941,40 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var_range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "var_range",
           "named": true
         }
       ]

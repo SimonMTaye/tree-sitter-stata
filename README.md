@@ -39,9 +39,15 @@ This section will be fleshed out as each broad structure is complete
 
 ### For Loops
 
-- [ ] flesh the list that can be matched in `foreach`
-  - [ ] `numlist`
-  - [ ] `varlist` / `newlist`
+- [x] flesh the list that can be matched in `foreach`
+  - [x] `numlist`
+  - [x] `varlist` / `newlist`
+
+### Delimit Statements
+
+Stata supports changing the line delimiter within a program; that means lines might be terminated with `;` instead of a newline. Given that this feature is commonly used, this grammar intends to support it if possible.
+
+However, I need to verify what exactly `delimiter` changes in stata. Does it change only how command statements are terminated? Or does it affect `if` statements and other control flow statements that treat a newline as a somewhat meaningful delimiter
 
 ## Issues
 
